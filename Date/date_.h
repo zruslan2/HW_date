@@ -18,6 +18,12 @@ public:
 	int getMonth() const { return month; }
 	int getYear() const { return year; }
 	void print();
+	// home work final class
+	bool IsLeap()const;
+	int maxday()const;
+	date_& operator+=(int day);
+	date_& operator-=(int day);
+
 };
 // home work
 bool operator<(const date_&a, const date_&b);
@@ -26,6 +32,8 @@ bool operator>(const date_&a, const date_&b);
 bool operator>=(const date_&a, const date_&b);
 bool operator==(const date_&a, const date_&b);
 bool operator!=(const date_&a, const date_&b);
+
+
 
 
 

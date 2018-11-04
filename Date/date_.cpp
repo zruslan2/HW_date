@@ -48,6 +48,61 @@ void date_::print()
 	cout << month << "." << year;
 }
 
+bool date_::IsLeap() const
+{
+	if (this->year % 4 == 0 && (this->year % 100 != 0 || this->year % 400 == 0)) return true;
+	else return false;
+}
+
+int date_::maxday() const
+{
+	int days[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+	if (IsLeap())days[1] = 29;
+	return days[this->month - 1];
+}
+
+date_& date_::operator+=(int day)
+{
+	if (day + this->day>maxday()) {
+		day -= maxday() - this->day;
+		if (++this->month>12) {
+			month = 1;
+			year++;
+		}
+		while (double(day) / double(maxday())>1.0) {
+			if (++this->month>12) {
+				month = 1;
+				year++;
+			}
+			day -= maxday();
+		}
+		this->day = day;
+	}
+	else this->day += day;
+	return *this;
+}
+
+date_ & date_::operator-=(int day)
+{
+	if (this->day - day<1) {
+		day -= this->day;
+		if (--this->month == 0) {
+			month = 12;
+			year--;
+		}
+		while (double(day) / double(maxday())>1.0) {
+			day -= maxday();
+			if (--month == 0) {
+				month = 12;
+				year--;
+			}			
+		}
+		this->day = maxday() - day;
+	}
+	else this->day -= day;
+	return *this;
+}
+
 bool operator<(const date_ & a, const date_ & b)
 {
 	if (a.getYear() > b.getYear()) return false;
@@ -127,3 +182,4 @@ bool operator!=(const date_ & a, const date_ & b)
 {
 	return (a.getYear() != b.getYear() || a.getMonth() != b.getMonth() || a.getDay() != b.getDay());
 }
+

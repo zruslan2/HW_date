@@ -2,7 +2,14 @@
 
 void main() {
 	date_ d1(12, 2, 2000);
-	date_ d2(15, 2, 2000);
-	if (d1 != d2)cout << "y\n";
+	date_ d2(15, 4, 2000);
+	d2.print();
+	cout << endl;
+	d2 += 500;
+	d2.print();
+	cout << endl;
+	d2 -= 500;
+	d2.print();
+	cout << endl;
 	system("pause");
 }
